@@ -3,8 +3,8 @@
 #include <ESPAsyncWebServer.h>
 
 // Masukkan SSID dan Password Wi-Fi yang digunakan
-const char *ssid = "DESKTOP-ZAKI";
-const char *password = "88888888";
+const char *ssid = "IOT-ZAKI";
+const char *password = "44444444";
 
 // Membuat AsyncWebServer object pada port 80
 AsyncWebServer server(80);
@@ -33,8 +33,8 @@ void setup() {
     String htmlContent = R"HTML(
       <!DOCTYPE html>
       <html lang="en">
-        <head>
-          <meta charset="UTF-8" />
+      <head>
+        <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Home</title>
       <script src="https://cdn.tailwindcss.com"></script>
@@ -304,193 +304,223 @@ void setup() {
   server.on("/about", HTTP_GET, [](AsyncWebServerRequest *request) {
     String htmlContent = R"HTML(
       <!DOCTYPE html>
-      <html lang="en">
-        <head>
-          <meta charset="UTF-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-          <title>Home</title>
-          <script src="https://cdn.tailwindcss.com"></script>
-          <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-            rel="stylesheet"
-          />
-        </head>
-        <body class="bg-[#F5F5F5]">
-          <main class="font-inter flex">
-            <aside
-              class="py-10 w-[277px] flex flex-col gap-10 h-screen text-white bg-gradient-purple1 flex flex-col justify-between items-center"
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-[#F5F5F5]">
+    <main class="font-inter flex">
+      <aside
+        class="py-10 w-[277px] flex flex-col gap-10 h-screen text-white bg-gradient-purple1 flex flex-col justify-between items-center"
+      >
+        <img
+          class="px-5"
+          src="https://sbm-final-project-fe.vercel.app/Logo.png"
+        />
+        <ul class="text-[24px] w-full flex flex-col items-center relative">
+          <div
+            class="absolute right-0 top-0 bg-[#F5F5F5] w-[95%] h-[25%] rounded-l-full translate-y-[300%]"
+          ></div>
+          <li class="py-3 z-[2]">
+            <a href="/" class="flex items-center gap-3">
+              <img
+                class="h-[28px] mt-[-3px]"
+                src="https://sbm-final-project-fe.vercel.app/Home.png"
+              />
+              Home
+            </a>
+          </li>
+          <li class="py-3 z-[2]">
+            <a class="flex gap-3 items-center" href="/history">
+              <img
+                class="h-[28px]"
+                src="https://sbm-final-project-fe.vercel.app/History.png"
+              />
+              History
+            </a>
+          </li>
+          <li class="py-3 z-[2]">
+            <a class="flex items-center gap-3" href="/settings">
+              <img
+                class="w-[30px]"
+                src="https://sbm-final-project-fe.vercel.app/Settings.png"
+              />
+              Settings</a
             >
-              <h1 class="underline underline-offset-4 underline-white text-[24px]">
-                Project SBM
-              </h1>
-              <ul class="text-[24px] relative w-full flex flex-col items-center">
-                <div
-                  class="absolute right-0 top-0 bg-[#F5F5F5] w-[95%] h-[25%] rounded-l-full translate-y-[300%]"
-                ></div>
-                <li class="py-3 z-[2]">
-                  <a href="/">Home</a>
-                </li>
-                <li class="py-3 z-[2]">
-                  <a href="/history">History</a>
-                </li>
-                <li class="py-3 z-[2]">
-                  <a href="/settings">Settings</a>
-                </li>
-                <li class="py-3 z-[2] font-semibold !text-[#5740B4]">
-                  <a href="/about">About</a>
-                </li>
-              </ul>
-              <p class="text-[18px]">&copy; 2023</p>
-            </aside>
-            <div class="p-10 w-full">
-              <div class="flex items-center gap-5">
-                <h1
-                  class="text-[24px] font-semibold bg-gradient-purple2 text-transparent bg-clip-text"
-                >
-                  About
+          </li>
+          <li class="py-3 z-[2] text-[#5740B4] font-semibold">
+            <a class="flex items-center gap-3" href="/about.html">
+              <img class="w-[30px]" src="https://sbm-final-project-fe.vercel.app/AboutActive.png" />
+              About
+            </a>
+          </li>
+        </ul>
+        <p class="text-[18px]">&copy; 2023</p>
+      </aside>
+      <div class="p-10 w-full">
+        <div class="flex items-center gap-5">
+          <h1
+            class="text-[24px] font-semibold bg-gradient-purple2 text-transparent bg-clip-text"
+          >
+            About
+          </h1>
+          <hr class="w-full bg-gradient-purple2 h-[4px] rounded-full" />
+        </div>
+        <main class="py-5">
+          <h1
+            class="text-[#5740B4] text-[22px] font-bold underline underline-[#5740B4]"
+          >
+            Our Team:
+          </h1>
+          <ul class="text-[#5740B4]">
+            <li class="w-fit">
+              <a
+                class="w-fit block hover:underline underline-[#5740B4]"
+                href="https://github.com/NandoAACF"
+              >
+                <h1 class="font-semibold">
+                  Agustinus Angelo Christian Fernando
                 </h1>
-                <hr class="w-full bg-gradient-purple2 h-[4px] rounded-full" />
-              </div>
-              <main class="py-5">
-                <h1 class="text-[#5740B4] text-[22px] font-bold underline underline-[#5740B4]">Our Team:</h1>
-                <ul class="text-[#5740B4]">
-                  <li class="w-fit">
-                    <a
-                      class="w-fit block hover:underline underline-[#5740B4]"
-                      href="https://github.com/NandoAACF"
-                    >
-                      <h1 class="font-semibold">
-                        Agustinus Angelo Christian Fernando
-                      </h1>
-                    </a>
-                    <h2>21/473804/TK/52235</h2>
-                  </li>
-                  <li class="w-fit">
-                    <a
-                      class="w-fit block font-semibold hover:underline underline-[#5740B4]"
-                      href="https://github.com/ahmadzaki2975"
-                    >
-                      <h1>Ahmad Zaki Akmal</h1>
-                    </a>
-                    <h2>21/480179/TK/52981</h2>
-                  </li>
-                  <li class="w-fit">
-                    <a
-                      class="w-fit block hover:underline underline-[#5740B4] font-semibold"
-                      href="https://github.com/aufarhmn"
-                    >
-                      <h1>Aufa Nasywa Rahman</h1>
-                    </a>
-                    <h2>21/475255/TK/52454</h2>
-                  </li>
-                  <li class="w-fit">
-                    <a
-                      class="w-fit block hover:underline underline-[#5740B4] font-semibold"
-                      href="https://github.com/DiftaFitrahul"
-                    >
-                      <h1>Difta Fitrahul Qihaj</h1>
-                    </a>
-                    <h2>21/480096/TK/52975</h2>
-                  </li>
-                  <li class="w-fit">
-                    <a
-                      class="w-fit block hover:underline underline-[#5740B4] font-semibold"
-                      href="https://github.com/gigahidjrikaaa"
-                    >
-                      <h1>Giga Hidjrika Aura Adkhy</h1>
-                    </a>
-                    <h2>21/479228/TK/52833</h2>
-                  </li>
-                </ul>
-                <h1 class="text-[#5740B4] text-[22px] font-bold underline underline-[#5740B4] mt-5">Quick Links:</h1>
-                <a
-                  class="text-[#5740B4] hover:underline undelrine-[#5740B4] font-semibold"
-                  href="https://github.com/ahmadzaki2975/Chem-E-Car-Monitoring"
-                >
-                  Main Repository
-                </a>
-                <p>
-                  The repository containing the code for the ESP32
-                </p>
-                <a
-                  class="text-[#5740B4] hover:underline undelrine-[#5740B4] font-semibold"
-                  href="https://github.com/ahmadzaki2975/SBM-Final-Project-HTML"
-                >
-                  HTML Dev Repository
-                </a>
-                <p>
-                  The repository containing the code for the HTML during development phase.
-                </p>
-              </main>
-            </div>
-          </main>
-        </body>
-        <style>
-          * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-          }
-          .bg-gradient-purple1 {
-            background: linear-gradient(
-              rgba(42, 88, 208),
-              rgba(87, 64, 180),
-              rgba(66, 145, 180)
-            );
-          }
-          .bg-gradient-purple2 {
-            background: linear-gradient(
-              100deg,
-              rgba(42, 88, 208),
-              rgba(87, 64, 180),
-              rgba(66, 145, 180)
-            );
-          }
-          .bg-gradient-green1 {
-            background: linear-gradient(#0dcc2b, #11ac62, #3e9b65);
-          }
-          .font-inter {
-            font-family: "Inter", sans-serif;
-          }
-          .bg-clip-text {
-            -webkit-background-clip: text;
-            background-clip: text;
-          }
-          .drop-shadow-1 {
-            filter: drop-shadow(5px 12px 10px rgba(0, 0, 0, 0.3));
-          }
-        </style>
-        <script defer>
-          const ctx = document.getElementById("myChart");
+              </a>
+              <h2>21/473804/TK/52235</h2>
+            </li>
+            <li class="w-fit">
+              <a
+                class="w-fit block font-semibold hover:underline underline-[#5740B4]"
+                href="https://github.com/ahmadzaki2975"
+              >
+                <h1>Ahmad Zaki Akmal</h1>
+              </a>
+              <h2>21/480179/TK/52981</h2>
+            </li>
+            <li class="w-fit">
+              <a
+                class="w-fit block hover:underline underline-[#5740B4] font-semibold"
+                href="https://github.com/aufarhmn"
+              >
+                <h1>Aufa Nasywa Rahman</h1>
+              </a>
+              <h2>21/475255/TK/52454</h2>
+            </li>
+            <li class="w-fit">
+              <a
+                class="w-fit block hover:underline underline-[#5740B4] font-semibold"
+                href="https://github.com/DiftaFitrahul"
+              >
+                <h1>Difta Fitrahul Qihaj</h1>
+              </a>
+              <h2>21/480096/TK/52975</h2>
+            </li>
+            <li class="w-fit">
+              <a
+                class="w-fit block hover:underline underline-[#5740B4] font-semibold"
+                href="https://github.com/gigahidjrikaaa"
+              >
+                <h1>Giga Hidjrika Aura Adkhy</h1>
+              </a>
+              <h2>21/479228/TK/52833</h2>
+            </li>
+          </ul>
+          <h1
+            class="text-[#5740B4] text-[22px] font-bold underline underline-[#5740B4] mt-5"
+          >
+            Quick Links:
+          </h1>
+          <a
+            class="text-[#5740B4] hover:underline undelrine-[#5740B4] font-semibold"
+            href="https://github.com/ahmadzaki2975/Chem-E-Car-Monitoring"
+          >
+            Main Repository
+          </a>
+          <p>The repository containing the code for the ESP32</p>
+          <a
+            class="text-[#5740B4] hover:underline undelrine-[#5740B4] font-semibold"
+            href="https://github.com/ahmadzaki2975/SBM-Final-Project-HTML"
+          >
+            HTML Dev Repository
+          </a>
+          <p>
+            The repository containing the code for the HTML during development
+            phase.
+          </p>
+        </main>
+      </div>
+    </main>
+  </body>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .bg-gradient-purple1 {
+      background: linear-gradient(
+        rgba(42, 88, 208),
+        rgba(87, 64, 180),
+        rgba(66, 145, 180)
+      );
+    }
+    .bg-gradient-purple2 {
+      background: linear-gradient(
+        100deg,
+        rgba(42, 88, 208),
+        rgba(87, 64, 180),
+        rgba(66, 145, 180)
+      );
+    }
+    .bg-gradient-green1 {
+      background: linear-gradient(#0dcc2b, #11ac62, #3e9b65);
+    }
+    .font-inter {
+      font-family: "Inter", sans-serif;
+    }
+    .bg-clip-text {
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+    .drop-shadow-1 {
+      filter: drop-shadow(5px 12px 10px rgba(0, 0, 0, 0.3));
+    }
+  </style>
+  <script defer>
+    const ctx = document.getElementById("myChart");
 
-          new Chart(ctx, {
-            type: "line",
-            data: {
-              labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-              datasets: [
-                {
-                  label: "# of Votes",
-                  data: [12, 19, 3, 5, 2, 3],
-                  borderWidth: 1,
-                },
-              ],
-            },
-            options: {
-              backgroundColor: "#5740B4",
-              borderWidth: 10,
-              borderColor: "#5740B4D3",
-              scales: {
-                y: {
-                  beginAtZero: true,
-                },
-              },
-            },
-          });
-        </script>
-      </html>)HTML";
+    new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+        datasets: [
+          {
+            label: "# of Votes",
+            data: [12, 19, 3, 5, 2, 3],
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        backgroundColor: "#5740B4",
+        borderWidth: 10,
+        borderColor: "#5740B4D3",
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
+  </script>
+</html>
+)HTML";
     request->send(200, "text/html", htmlContent);
   });
 }
