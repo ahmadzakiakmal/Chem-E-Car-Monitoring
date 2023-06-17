@@ -28,6 +28,7 @@ String aboutPage = R"HTML(
         />
         <ul class="text-[24px] w-full flex flex-col items-center relative">
           <div
+            id="active-indicator"
             class="absolute right-0 top-0 bg-[#F5F5F5] w-[95%] h-[33%] rounded-l-full translate-y-[200%]"
           ></div>
           <li class="py-3 z-[2]">
@@ -204,6 +205,9 @@ String aboutPage = R"HTML(
       color: #b77bef !important;
       filter: drop-shadow(0px 0px 5px rgba(42, 88, 208));
     }
+    .indicator-dark {
+      background: #16181b !important;
+    }
   </style>
   <script defer>
     const storedTheme = localStorage.getItem("theme");
@@ -212,6 +216,7 @@ String aboutPage = R"HTML(
       document.querySelectorAll(".container").forEach((container) => {
         container.classList.add("container-dark");
       });
+      document.querySelector("#active-indicator").classList.add("indicator-dark");
     }
   </script>
 </html>
