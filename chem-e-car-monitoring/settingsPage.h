@@ -2,7 +2,7 @@
 #define SETTINGS_PAGE_H_
 
 String settingsPage = R"HTML(
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -27,7 +27,8 @@ String settingsPage = R"HTML(
         />
         <ul class="text-[24px] w-full flex flex-col items-center relative">
           <div
-            class="absolute right-0 top-0 bg-[#F5F5F5] w-[95%] h-[25%] rounded-l-full translate-y-[200%]"
+            id="active-indicator"
+            class="absolute right-0 top-0 bg-[#F5F5F5] w-[95%] h-[33%] rounded-l-full translate-y-[100%]"
           ></div>
           <li class="py-3 z-[2]">
             <a href="/" class="flex items-center gap-3">
@@ -36,15 +37,6 @@ String settingsPage = R"HTML(
                 src="https://sbm-final-project-fe.vercel.app/Home.png"
               />
               Home
-            </a>
-          </li>
-          <li class="py-3 z-[2]">
-            <a class="flex gap-3 items-center" href="/history">
-              <img
-                class="h-[28px]"
-                src="https://sbm-final-project-fe.vercel.app/History.png"
-              />
-              History
             </a>
           </li>
           <li class="py-3 z-[2]">
@@ -75,7 +67,7 @@ String settingsPage = R"HTML(
           >
             Settings
           </h1>
-          <hr class="w-full bg-gradient-purple1 h-[4px] rounded-full" />
+          <div class="w-full bg-gradient-purple1 h-[4px] rounded-full"></div>
         </div>
         <main class="flex flex-col gap-5 py-5">
           <div class="flex items-center gap-3">
@@ -134,6 +126,9 @@ String settingsPage = R"HTML(
       background-color: #16181b !important;
       color: white;
     }
+    .indicator-dark {
+      background-color: #16181b !important;
+    }
   </style>
   <script>
     const toggleTheme = document.getElementById("toggle-theme");
@@ -143,13 +138,14 @@ String settingsPage = R"HTML(
       document.querySelector("body").classList.toggle("dark");
       themeSlider.classList.toggle("translate-x-[100%]");
       localStorage.setItem("theme", savedTheme == "light" ? "dark" : "light");
-      console.log(localStorage.getItem("theme"));
+      document.querySelector("#active-indicator").classList.toggle("indicator-dark");
     });
 
     const storedTheme = localStorage.getItem("theme");
     if (storedTheme === "dark") {
       document.querySelector("body").classList.add("dark");
       themeSlider.classList.add("translate-x-[100%]");
+      document.querySelector("#active-indicator").classList.add("indicator-dark");
     }
   </script>
 </html>

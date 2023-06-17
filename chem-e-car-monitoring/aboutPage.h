@@ -28,7 +28,7 @@ String aboutPage = R"HTML(
         />
         <ul class="text-[24px] w-full flex flex-col items-center relative">
           <div
-            class="absolute right-0 top-0 bg-[#F5F5F5] w-[95%] h-[25%] rounded-l-full translate-y-[300%]"
+            class="absolute right-0 top-0 bg-[#F5F5F5] w-[95%] h-[33%] rounded-l-full translate-y-[200%]"
           ></div>
           <li class="py-3 z-[2]">
             <a href="/" class="flex items-center gap-3">
@@ -37,15 +37,6 @@ String aboutPage = R"HTML(
                 src="https://sbm-final-project-fe.vercel.app/Home.png"
               />
               Home
-            </a>
-          </li>
-          <li class="py-3 z-[2]">
-            <a class="flex gap-3 items-center" href="/history">
-              <img
-                class="h-[28px]"
-                src="https://sbm-final-project-fe.vercel.app/History.png"
-              />
-              History
             </a>
           </li>
           <li class="py-3 z-[2]">
@@ -76,21 +67,21 @@ String aboutPage = R"HTML(
           >
             About
           </h1>
-          <hr class="w-full bg-gradient-purple2 h-[4px] rounded-full" />
+          <div class="w-full bg-gradient-purple2 h-[4px] rounded-full" ></div>
         </div>
         <main class="py-5" id="about">
           <div
             class="drop-shadow-1 relative bg-white px-4 py-3 overflow-hidden rounded-[20px] container"
           >
             <h1
-              class="text-[#5740B4] text-[22px] font-bold underline underline-[#5740B4] about-ul"
+              class="text-transparent bg-gradient-purple2 bg-clip-text text-[22px] font-bold underline underline-[#5740B4] about-ul"
             >
               Our Team:
             </h1>
-            <ul class="about-ul text-[#5740B4]">
+            <ul class="about-ul text-transparent bg-clip-text bg-gradient-purple2 w-fit">
               <li class="w-fit">
                 <a
-                  class="w-fit block hover:underline underline-[#5740B4]"
+                  class="w-fit block hover:text-[#5740B4]"
                   href="https://github.com/NandoAACF"
                 >
                   <h1 class="font-semibold">
@@ -101,7 +92,7 @@ String aboutPage = R"HTML(
               </li>
               <li class="w-fit">
                 <a
-                  class="w-fit block font-semibold hover:underline underline-[#5740B4]"
+                  class="w-fit block font-semibold hover:text-[#5740B4]"
                   href="https://github.com/ahmadzaki2975"
                 >
                   <h1>Ahmad Zaki Akmal</h1>
@@ -110,7 +101,7 @@ String aboutPage = R"HTML(
               </li>
               <li class="w-fit">
                 <a
-                  class="w-fit block hover:underline underline-[#5740B4] font-semibold"
+                  class="w-fit block hover:text-[#5740B4] font-semibold"
                   href="https://github.com/aufarhmn"
                 >
                   <h1>Aufa Nasywa Rahman</h1>
@@ -119,7 +110,7 @@ String aboutPage = R"HTML(
               </li>
               <li class="w-fit">
                 <a
-                  class="w-fit block hover:underline underline-[#5740B4] font-semibold"
+                  class="w-fit block hover:text-[#5740B4] font-semibold"
                   href="https://github.com/DiftaFitrahul"
                 >
                   <h1>Difta Fitrahul Qihaj</h1>
@@ -128,7 +119,7 @@ String aboutPage = R"HTML(
               </li>
               <li class="w-fit">
                 <a
-                  class="w-fit block hover:underline underline-[#5740B4] font-semibold"
+                  class="w-fit block hover:text-[#5740B4] font-semibold"
                   href="https://github.com/gigahidjrikaaa"
                 >
                   <h1>Giga Hidjrika Aura Adkhy</h1>
@@ -141,26 +132,26 @@ String aboutPage = R"HTML(
             class="drop-shadow-1 relative bg-white px-4 py-3 overflow-hidden rounded-[20px] mt-5 container"
           >
             <h1
-              class="text-[#5740B4] text-[22px] font-bold underline underline-[#5740B4] about-ul"
+              class="text-transparent bg-clip-text bg-gradient-purple2 text-[22px] font-bold underline underline-[#5740B4] about-ul"
             >
               Quick Links:
             </h1>
             <a
-              class="text-[#5740B4] hover:underline undelrine-[#5740B4] font-semibold about-ul"
+              class="text-transparent bg-clip-text bg-gradient-purple2 hover:text-[#5740B4] font-semibold about-ul"
               href="https://github.com/ahmadzaki2975/Chem-E-Car-Monitoring"
             >
               Main Repository
             </a>
-            <p class="text-[#5740B4]">
+            <p class="text-transparent bg-clip-text bg-gradient-purple2">
               The repository containing the code for the ESP32
             </p>
             <a
-              class="text-[#5740B4] hover:underline underline-[#5740B4] font-semibold about-ul"
+              class="text-transparent bg-clip-text bg-gradient-purple2 hover:text-[#5740B4] font-semibold about-ul"
               href="https://github.com/ahmadzaki2975/SBM-Final-Project-HTML"
             >
               HTML Dev Repository
             </a>
-            <p class="text-[#5740B4]">
+            <p class="text-transparent bg-clip-text bg-gradient-purple2">
               The repository containing the code for the HTML during development
               phase.
             </p>
