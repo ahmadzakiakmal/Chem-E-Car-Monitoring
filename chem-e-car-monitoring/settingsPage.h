@@ -67,7 +67,7 @@ String settingsPage = R"HTML(
           >
             Settings
           </h1>
-          <div class="w-full bg-gradient-purple1 h-[4px] rounded-full"></div>
+          <div class="w-full bg-gradient-purple2 h-[4px] rounded-full"></div>
         </div>
         <main class="flex flex-col gap-5 py-5">
           <div class="flex items-center gap-3">

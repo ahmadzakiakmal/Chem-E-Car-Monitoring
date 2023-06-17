@@ -75,7 +75,7 @@ String indexPage = R"HTML(
             <div
               class="drop-shadow-1 relative bg-white px-4 py-3 overflow-hidden rounded-[20px] w-[250px] container"
             >
-              <h1 class="text-[20px] text-[#5740B4]">Temperature</h1>
+              <h1 class="text-[20px] text-transparent bg-gradient-purple2 bg-clip-text font-semibold">Temperature</h1>
               <h2
                 id="temperature"
                 class="text-[30px] font-bold text-transparent bg-gradient-purple2 bg-clip-text w-fit"
@@ -91,7 +91,7 @@ String indexPage = R"HTML(
             <div
               class="drop-shadow-1 bg-white px-4 py-3 relative overflow-hidden rounded-[20px] w-[250px] container"
             >
-              <h1 class="text-[20px] text-[#5740B4]">Humidity</h1>
+              <h1 class="text-[20px] text-transparent bg-gradient-purple2 bg-clip-text font-semibold">Humidity</h1>
               <h2
                 id="humidity"
                 class="text-[30px] font-bold text-transparent bg-gradient-purple2 bg-clip-text w-fit"
@@ -112,7 +112,7 @@ String indexPage = R"HTML(
               <div
                 class="flex justify-between mb-3 w-full lg:w-1/2 flex-shrink-0"
               >
-                <h1 class="text-[20px] text-[#5740B4]">Status Chart</h1>
+                <h1 class="text-[20px] text-transparent bg-gradient-purple2 bg-clip-text font-semibold">Status Chart</h1>
               </div>
               <div>
                 <canvas id="myChart"></canvas>
@@ -122,7 +122,7 @@ String indexPage = R"HTML(
               class="drop-shadow-1 bg-white px-4 py-3 rounded-[20px] container w-fit"
             >
               <div class="flex justify-between items-end mb-3">
-                <h1 class="text-[20px] text-[#5740B4]">Car Status</h1>
+                <h1 class="text-[20px] text-transparent bg-gradient-purple2 bg-clip-text font-semibold">Car Status</h1>
                 <div
                   class="flex items-center gap-3 bg-gradient-green1 text-transparent bg-clip-text font-bold"
                 >
@@ -290,12 +290,12 @@ String indexPage = R"HTML(
           y: {
             beginAtZero: true,
             grid: {
-              color: localStorage.getItem("theme") == "dark"? "#f5f5f544" : "#16181B44",
+              color: localStorage.getItem("theme") == "dark"? "#f5f5f522" : "#16181B44",
             },
           },
           x: {
             grid: {
-              color: localStorage.getItem("theme") == "dark"? "#f5f5f544" : "#16181B44",
+              color: localStorage.getItem("theme") == "dark"? "#f5f5f522" : "#16181B44",
             }
           }
         },
