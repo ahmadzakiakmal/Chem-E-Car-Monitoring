@@ -49,7 +49,7 @@ String aboutPage = R"HTML(
               Settings</a
             >
           </li>
-          <li class="py-3 z-[2] text-[#5740B4] font-semibold">
+          <li class="py-3 z-[2] text-transparent bg-gradient-purple2 bg-clip-text font-semibold">
             <a class="flex items-center gap-3" href="/about.html">
               <img
                 class="w-[30px]"

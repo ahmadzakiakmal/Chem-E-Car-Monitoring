@@ -31,7 +31,7 @@ String indexPage = R"HTML(
             id="active-indicator"
             class="absolute right-0 top-0 bg-[#F5F5F5] w-[95%] h-[33%] rounded-l-full"
           ></div>
-          <li class="py-3 z-[2] font-semibold !text-[#5740B4]">
+          <li class="py-3 z-[2] font-semibold text-transparent bg-gradient-purple2 bg-clip-text">
             <a href="/" class="flex items-center gap-3">
               <img
                 class="h-[28px] mt-[-3px]"

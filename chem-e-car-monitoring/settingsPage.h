@@ -40,7 +40,7 @@ String settingsPage = R"HTML(
             </a>
           </li>
           <li class="py-3 z-[2]">
-            <a class="flex items-center gap-3 font-semibold !text-[#5740B4]" href="/settings">
+            <a class="flex items-center gap-3 font-semibold text-transparent bg-gradient-purple2 bg-clip-text" href="/settings">
               <img
                 class="w-[30px]"
                 src="https://sbm-final-project-fe.vercel.app/SettingsActive.png"
