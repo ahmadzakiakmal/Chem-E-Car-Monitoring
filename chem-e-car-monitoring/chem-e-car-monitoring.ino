@@ -90,7 +90,7 @@ void loop() {
     jsonString += ", \"accelerationY\" : ";
     jsonString += a.acceleration.y;
     jsonString += ", \"accelerationZ\" : ";
-    jsonString += a.acceleration.z;
+    jsonString += a.acceleration.z - 9.8;
     jsonString += ", \"rotationX\" : ";
     jsonString += g.gyro.x;
     jsonString += ", \"rotationY\" : ";
