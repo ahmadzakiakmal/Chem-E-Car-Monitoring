@@ -7,49 +7,54 @@
 #include "indexPage.h"
 #include "aboutPage.h"
 #include "settingsPage.h"
+#include "DHT.h"
 
-// Masukkan SSID dan Password Wi-Fi yang digunakan
+// WiFi SSID and Password
 const char *ssid = "IOT-ZAKI";
 const char *password = "44444444";
 
-// OLED Setup
+// OLED setup
 #define SCREEN_WIDTH 128  // OLED display width, in pixels
 #define SCREEN_HEIGHT 64  // OLED display height, in pixels
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
-// Membuat AsyncWebServer object pada port 80
+// Web Server and Web Socket setup
 AsyncWebServer server(80);
-// Membuat AsyncWebSocket pada path "/ws"
 AsyncWebSocket ws("/ws");
+
+// DHT setup
+#define DHTPIN 4
+#define DHTTYPE DHT22
+DHT dht(DHTPIN, DHTTYPE);
 
 void setup() {
   Serial.begin(115200);
-  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {  // Address 0x3D for 128x64
+  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { 
     Serial.println(F("SSD1306 allocation failed"));
     for (;;)
       ;
   }
-
-  // Koneksi ke Wi-Fi
+  // WiFi connection
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
     Serial.println("Connecting to WiFi...");
   }
-  // Print IP Address dari ESP32
+  // Display the IP Address
   Serial.println(WiFi.localIP());
   display.clearDisplay();
   display.setTextSize(1);
   display.setTextColor(WHITE);
   display.setCursor(0, 10);
-  // Display static text
   display.println("IP Address: ");
   display.println(WiFi.localIP());
   display.display();
-
-  // Start server dan inisiasi web socket
+  // Start server and web socket
   server.begin();
   server.addHandler(&ws);
+
+  // DHT
+  dht.begin();
 
   // Route: "/"
   // Method: GET
@@ -68,26 +73,23 @@ void setup() {
   });
 }
 
-
-
-
-
-
 void loop() {
     ws.cleanupClients();
 
     // Test random data
-    int temp = random(0, 100);
+    float temperature = dht.readTemperature();
+    float humidity = dht.readHumidity();
 
     // Constructing JSON
     String jsonString = "";
-    jsonString += "{";
-    jsonString += "\"temperature\" : ";
-    jsonString += temp;
+    jsonString += "{\"temperature\" : ";
+    jsonString += temperature;
+    jsonString += ", \"humidity\" : ";
+    jsonString += humidity;
     jsonString += "}";
 
     // Sending JSON using websocket
     ws.textAll(jsonString);
     Serial.println(jsonString);
-    delay(500);
+    delay(1000);
   }
