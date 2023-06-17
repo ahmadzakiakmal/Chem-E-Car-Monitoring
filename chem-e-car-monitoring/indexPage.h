@@ -75,12 +75,16 @@ String indexPage = R"HTML(
             <div
               class="drop-shadow-1 relative bg-white px-4 py-3 overflow-hidden rounded-[20px] w-[250px] container"
             >
-              <h1 class="text-[20px] text-transparent bg-gradient-purple2 bg-clip-text font-semibold">Temperature</h1>
+              <h1
+                class="text-[20px] text-transparent bg-gradient-purple2 bg-clip-text font-semibold"
+              >
+                Temperature
+              </h1>
               <h2
                 id="temperature"
                 class="text-[30px] font-bold text-transparent bg-gradient-purple2 bg-clip-text w-fit"
               >
-                33.5 °C
+                0 °C
               </h2>
               <img
                 class="absolute top-0 right-0 h-full"
@@ -91,12 +95,16 @@ String indexPage = R"HTML(
             <div
               class="drop-shadow-1 bg-white px-4 py-3 relative overflow-hidden rounded-[20px] w-[250px] container"
             >
-              <h1 class="text-[20px] text-transparent bg-gradient-purple2 bg-clip-text font-semibold">Humidity</h1>
+              <h1
+                class="text-[20px] text-transparent bg-gradient-purple2 bg-clip-text font-semibold"
+              >
+                Humidity
+              </h1>
               <h2
                 id="humidity"
                 class="text-[30px] font-bold text-transparent bg-gradient-purple2 bg-clip-text w-fit"
               >
-                70 %
+                0 %
               </h2>
               <img
                 src="https://sbm-final-project-fe.vercel.app/humid_icon.png"
@@ -107,12 +115,16 @@ String indexPage = R"HTML(
           </div>
           <div class="flex gap-5 flex-col lg:flex-row">
             <div
-              class="drop-shadow-1 bg-white px-4 py-3 relative overflow-hidden rounded-[20px] w-[550px] container"
+              class="drop-shadow-1 bg-white px-4 py-3 relative overflow-hidden rounded-[20px] w-[550px] container h-min"
             >
               <div
                 class="flex justify-between mb-3 w-full lg:w-1/2 flex-shrink-0"
               >
-                <h1 class="text-[20px] text-transparent bg-gradient-purple2 bg-clip-text font-semibold">Status Chart</h1>
+                <h1
+                  class="text-[20px] text-transparent bg-gradient-purple2 bg-clip-text font-semibold"
+                >
+                  Status Chart
+                </h1>
               </div>
               <div>
                 <canvas id="myChart"></canvas>
@@ -122,7 +134,11 @@ String indexPage = R"HTML(
               class="drop-shadow-1 bg-white px-4 py-3 rounded-[20px] container w-fit"
             >
               <div class="flex justify-between items-end mb-3">
-                <h1 class="text-[20px] text-transparent bg-gradient-purple2 bg-clip-text font-semibold">Car Status</h1>
+                <h1
+                  class="text-[20px] text-transparent bg-gradient-purple2 bg-clip-text font-semibold"
+                >
+                  Car Status
+                </h1>
                 <div
                   class="flex items-center gap-3 bg-gradient-green1 text-transparent bg-clip-text font-bold"
                 >
@@ -132,60 +148,87 @@ String indexPage = R"HTML(
                   Monitoring
                 </div>
               </div>
-              <div class="flex gap-20 mb-2">
-                <div>
-                  <h1 class="text-[#828282] text-[14px] font-semibold">
-                    Speed
-                  </h1>
-                  <h2
-                    class="text-[30px] font-bold text-transparent bg-gradient-purple2 bg-clip-text w-fit"
-                  >
-                    6 m/s
-                  </h2>
+              <div class="flex gap-10">
+                <div class="flex flex-col gap-5">
+                  <div>
+                    <h1 class="text-[#828282] text-[14px] font-semibold">
+                      AccelerationX (m/s<sup>2</sup>)
+                    </h1>
+                    <h2
+                      id="accelerationX"
+                      class="text-[30px] font-bold text-transparent bg-gradient-purple2 bg-clip-text w-fit"
+                    >
+                      0
+                    </h2>
+                  </div>
+                  <div>
+                    <h1 class="text-[#828282] text-[14px] font-semibold">
+                      AccelerationY (m/s<sup>2</sup>)
+                    </h1>
+                    <h2
+                      id="accelerationY"
+                      class="text-[30px] font-bold text-transparent bg-gradient-purple2 bg-clip-text w-fit"
+                    >
+                      0
+                    </h2>
+                  </div>
+                  <div>
+                    <h1 class="text-[#828282] text-[14px] font-semibold">
+                      AccelerationZ (m/s<sup>2</sup>)
+                    </h1>
+                    <h2
+                      id="accelerationZ"
+                      class="text-[30px] font-bold text-transparent bg-gradient-purple2 bg-clip-text w-fit"
+                    >
+                      0
+                    </h2>
+                  </div>
+                  <div>
+                    <h1 class="text-[#828282] text-[14px] font-semibold">
+                      Misalignment (°)
+                    </h1>
+                    <h2
+                      id="misalignmentAngle"
+                      class="text-[30px] font-bold text-transparent bg-gradient-purple2 bg-clip-text w-fit"
+                    >
+                      0
+                    </h2>
+                  </div>
                 </div>
-                <div>
-                  <h1 class="text-[#828282] text-[14px] font-semibold">
-                    Distance Travelled
-                  </h1>
-                  <h2
-                    class="text-[30px] font-bold text-transparent bg-gradient-purple2 bg-clip-text w-fit"
-                  >
-                    20 m
-                  </h2>
-                </div>
-              </div>
-              <div class="flex gap-20 mb-2">
-                <div>
-                  <h1 class="text-[#828282] text-[14px] font-semibold">
-                    Drift (yaw)
-                  </h1>
-                  <h2
-                    class="text-[30px] font-bold text-transparent bg-gradient-purple2 bg-clip-text w-fit"
-                  >
-                    5.28 °
-                  </h2>
-                </div>
-                <div>
-                  <h1 class="text-[#828282] text-[14px] font-semibold">
-                    Drift (roll)
-                  </h1>
-                  <h2
-                    class="text-[30px] font-bold text-transparent bg-gradient-purple2 bg-clip-text w-fit"
-                  >
-                    -8.28 °
-                  </h2>
-                </div>
-              </div>
-              <div class="flex gap-20">
-                <div>
-                  <h1 class="text-[#828282] text-[14px] font-semibold">
-                    Drift (pitch)
-                  </h1>
-                  <h2
-                    class="text-[30px] font-bold text-transparent bg-gradient-purple2 bg-clip-text w-fit"
-                  >
-                    8.29 °
-                  </h2>
+                <div class="flex flex-col gap-4">
+                  <div>
+                    <h1 class="text-[#828282] text-[14px] font-semibold">
+                      Roll Drift (°)
+                    </h1>
+                    <h2
+                      id="rollDrift"
+                      class="text-[30px] font-bold text-transparent bg-gradient-purple2 bg-clip-text w-fit"
+                    >
+                      0
+                    </h2>
+                  </div>
+                  <div>
+                    <h1 class="text-[#828282] text-[14px] font-semibold">
+                      Pitch Drift (°)
+                    </h1>
+                    <h2
+                      id="pitchDrift"
+                      class="text-[30px] font-bold text-transparent bg-gradient-purple2 bg-clip-text w-fit"
+                    >
+                      0
+                    </h2>
+                  </div>
+                  <div>
+                    <h1 class="text-[#828282] text-[14px] font-semibold">
+                      Yaw Drift (°)
+                    </h1>
+                    <h2
+                      id="yawDrift"
+                      class="text-[30px] font-bold text-transparent bg-gradient-purple2 bg-clip-text w-fit"
+                    >
+                      0
+                    </h2>
+                  </div>
                 </div>
               </div>
             </div>
@@ -290,14 +333,20 @@ String indexPage = R"HTML(
           y: {
             beginAtZero: true,
             grid: {
-              color: localStorage.getItem("theme") == "dark"? "#f5f5f522" : "#16181B44",
+              color:
+                localStorage.getItem("theme") == "dark"
+                  ? "#f5f5f522"
+                  : "#16181B44",
             },
           },
           x: {
             grid: {
-              color: localStorage.getItem("theme") == "dark"? "#f5f5f522" : "#16181B44",
-            }
-          }
+              color:
+                localStorage.getItem("theme") == "dark"
+                  ? "#f5f5f522"
+                  : "#16181B44",
+            },
+          },
         },
       },
     });
@@ -333,6 +382,28 @@ String indexPage = R"HTML(
       chart.data.datasets[0].data = temperatures;
       chart.data.labels = labels;
       chart.update();
+
+      const accelerationX = document.querySelector("#accelerationX");
+      accelerationX.innerHTML = JSON.parse(event.data).accelerationX;
+
+      const accelerationY = document.querySelector("#accelerationY");
+      accelerationY.innerHTML = JSON.parse(event.data).accelerationY;
+
+      const accelerationZ = document.querySelector("#accelerationZ");
+      accelerationZ.innerHTML = JSON.parse(event.data).accelerationZ;
+
+      const pitch = document.querySelector("#pitchDrift");
+      pitch.innerHTML = JSON.parse(event.data).rotationY;
+
+      const roll = document.querySelector("#rollDrift");
+      roll.innerHTML = JSON.parse(event.data).rotationX;
+
+      const yaw = document.querySelector("#yawDrift");
+      yaw.innerHTML = JSON.parse(event.data).rotationZ;
+
+      const misalignmentAngle = document.querySelector("#misalignmentAngle");
+      misalignmentAngle.innerHTML =
+        JSON.parse(event.data).missAngle;
     });
   </script>
 </html>
