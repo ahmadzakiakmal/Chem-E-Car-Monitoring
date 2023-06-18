@@ -189,7 +189,8 @@ void loop() {
     }
   }
 
-  if (isnan(temperature) || isnan(humidity) || isnan(g.gyro.x) || isnan(g.gyro.y) || isnan(g.gyro.z) || isnan(a.acceleration.x) || isnan(a.acceleration.y) || isnan(a.acceleration.z) || isnan(wrongHeading) || isnan(distance) || isnan(speed)) {
+  if (isnan(temperature) || isnan(humidity) || isnan(g.gyro.x) || isnan(g.gyro.y) || isnan(g.gyro.z) || isnan(a.acceleration.x) || 
+    isnan(a.acceleration.y) || isnan(a.acceleration.z) || isnan(wrongHeading) || isnan(distance) || isnan(speed)) {
     return;
   }
 
