@@ -151,7 +151,7 @@ String indexPage = R"HTML(
                 </div>
               </div>
               <div class="flex flex-col gap-10">
-                <div class="w-full flex justify-center gap-10">
+                <div class="w-full flex justify-center">
                   <div>
                     <h1
                       class="text-[#828282] text-center text-[14px] font-semibold"
@@ -165,11 +165,26 @@ String indexPage = R"HTML(
                       00:00:00
                     </h2>
                   </div>
+                </div>
+                <div class="flex gap-10 justify-center">
                   <div>
                     <h1
                       class="text-[#828282] text-center text-[14px] font-semibold"
                     >
-                      Speed (m/s)
+                      Distance (cm)
+                    </h1>
+                    <h2
+                      id="distance"
+                      class="text-[30px] font-bold text-transparent bg-gradient-purple2 bg-clip-text w-full text-center"
+                    >
+                      0
+                    </h2>
+                  </div>
+                  <div>
+                    <h1
+                      class="text-[#828282] text-center text-[14px] font-semibold"
+                    >
+                      Speed (cm/s)
                     </h1>
                     <h2
                       id="speed"
@@ -275,20 +290,36 @@ String indexPage = R"HTML(
               </div>
             </div>
             <div
-              class="drop-shadow-1 bg-white px-4 py-3 relative overflow-hidden rounded-[20px] w-[550px] container h-min"
+            class="drop-shadow-1 bg-white px-4 py-3 relative overflow-hidden rounded-[20px] w-[550px] container h-min"
+          >
+            <div
+              class="flex justify-between mb-3 w-full lg:w-1/2 flex-shrink-0"
             >
-              <div
-                class="flex justify-between mb-3 w-full lg:w-1/2 flex-shrink-0"
+              <h1
+                class="text-[20px] text-transparent bg-gradient-purple2 bg-clip-text font-semibold"
               >
-                <h1
-                  class="text-[20px] text-transparent bg-gradient-purple2 bg-clip-text font-semibold"
-                >
-                  Acceleration Chart
-                </h1>
-              </div>
-              <div>
-                <canvas id="AccelerationChart"></canvas>
-              </div>
+                Distance & Speed Chart
+              </h1>
+            </div>
+            <div>
+              <canvas id="distanceSpeedChart"></canvas>
+            </div>
+          </div>
+          </div>
+          <div
+            class="drop-shadow-1 bg-white px-4 py-3 relative overflow-hidden rounded-[20px] w-[550px] container h-min"
+          >
+            <div
+              class="flex justify-between mb-3 w-full lg:w-1/2 flex-shrink-0"
+            >
+              <h1
+                class="text-[20px] text-transparent bg-gradient-purple2 bg-clip-text font-semibold"
+              >
+                Acceleration Chart
+              </h1>
+            </div>
+            <div>
+              <canvas id="AccelerationChart"></canvas>
             </div>
           </div>
           <div
@@ -366,16 +397,18 @@ String indexPage = R"HTML(
     const espIP = window.location.host;
     const timeOpened = Date.now();
     const timePassed = document.querySelector("#timePassed");
-    
+
     setInterval(() => {
       const timeNow = Date.now();
       const timeDiff = new Date(timeNow - timeOpened);
       const secondsPassed = Math.floor(timeDiff.getTime() / 1000) % 60;
       const hoursString = timeDiff.getUTCHours().toString().padStart(2, "0");
-      const minutesString = timeDiff.getUTCMinutes().toString().padStart(2, "0");
+      const minutesString = timeDiff
+        .getUTCMinutes()
+        .toString()
+        .padStart(2, "0");
       const secondsString = secondsPassed.toString().padStart(2, "0");
       timePassed.innerHTML = `${hoursString}:${minutesString}:${secondsString}`;
-      
     }, 1000);
 
     if (localStorage.getItem("theme") === "dark") {
@@ -549,6 +582,54 @@ String indexPage = R"HTML(
       },
     });
 
+    const speedDistanceChart = document.getElementById("SpeedDistanceChart");
+    const speeds = [];
+    const distances = [];
+    const chart4 = new Chart(speedDistanceChart, {
+      type: "line",
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: "Speed (m/s)",
+            data: speeds,
+            borderWidth: 1,
+            backgroundColor: "#5740B4",
+            borderColor: "#5740B4",
+          },
+          {
+            label: "Distance (m)",
+            data: distances,
+            borderWidth: 1,
+            backgroundColor: "#2A58D0",
+            borderColor: "#2A58D0",
+          },
+        ],
+      },
+      options: {
+        borderWidth: 10,
+        scales: {
+          y: {
+            beginAtZero: true,
+            grid: {
+              color:
+                localStorage.getItem("theme") == "dark"
+                  ? "#f5f5f522"
+                  : "#16181B44",
+            },
+          },
+          x: {
+            grid: {
+              color:
+                localStorage.getItem("theme") == "dark"
+                  ? "#f5f5f522"
+                  : "#16181B44",
+            },
+          },
+        },
+      },
+    });
+
     const websocket = new WebSocket(`ws://${espIP}/ws`);
     websocket.addEventListener("open", (event) => {
       websocket.send("Hello Server!");
@@ -619,6 +700,20 @@ String indexPage = R"HTML(
       }
       gyroZs.push(JSON.parse(event.data).rotationZ);
 
+      const speed = document.querySelector("#speed");
+      speed.innerHTML = JSON.parse(event.data).speed;
+      if(speeds.length > 10) {
+        speeds.shift();
+      }
+      speeds.push(JSON.parse(event.data).speed);
+
+      const distance = document.querySelector("#distance");
+      distance.innerHTML = JSON.parse(event.data).distance;
+      if(distances.length > 10) {
+        distances.shift();
+      }
+      distances.push(JSON.parse(event.data).distance);
+
       const misalignmentAngle = document.querySelector("#misalignmentAngle");
       misalignmentAngle.innerHTML = JSON.parse(event.data).missAngle;
 
@@ -637,10 +732,14 @@ String indexPage = R"HTML(
       chart3.data.datasets[2].data = gyroZs;
       chart3.data.labels = labels;
       chart3.update();
+
+      chart4.data.datasets[0].data = speeds;
+      chart4.data.datasets[1].data = distances;
+      chart4.data.labels = labels;
+      chart4.update();
     });
   </script>
 </html>
 )HTML";
-
 
 #endif
