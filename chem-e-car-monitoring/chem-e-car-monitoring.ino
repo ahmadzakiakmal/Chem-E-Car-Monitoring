@@ -19,7 +19,8 @@ const char *password = "44444444";
 
 // =========================================================================================================
 // MQTT Broker Setup
-const char *mqttServer = "192.168.137.1";
+// const char *mqttServer = "192.168.137.1"; // ZAKI
+const char *mqttServer = "192.168.137.58"; //GIGA
 const int mqttPort = 1883;
 const char *mqttTopic = "ChemECarData";
 
