@@ -68,6 +68,7 @@ float distance = 0; // total distance traveled by the encoder in cm
 float speed = 0; // current speed of the encoder in cm/s
 unsigned long lastTime = 0; // previous time of measurement in ms
 unsigned long lastEncTime = 0; // previous time the encoder position was measured in ms
+unsigned long lastSpeedCheck = 0;
 
 // =========================================================================================================
 // Setup function
@@ -189,6 +190,13 @@ void loop() {
 
       lastEncoderPosition = encoderPosition; // update the previous position
       lastTime = currentTime; // update the previous time
+    }
+    else
+    {
+      if(millis() - lastSpeedCheck > 1000)
+      {
+        speed = 0;
+      }
     }
   }
 
