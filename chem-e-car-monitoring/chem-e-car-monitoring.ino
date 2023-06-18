@@ -46,8 +46,8 @@ float originalHeading = 0.0;
 
 // =========================================================================================================
 // Rotary Encoder Setup
-#define ROTARY_ENCODER_A_PIN 22         // CLK
-#define ROTARY_ENCODER_B_PIN 23         // DT
+#define ROTARY_ENCODER_A_PIN 25         // CLK
+#define ROTARY_ENCODER_B_PIN 26         // DT
 #define ROTARY_ENCODER_BUTTON_PIN 21    // SW
 #define ROTARY_ENCODER_VCC_PIN -1       // VCC
 
@@ -164,23 +164,29 @@ void loop() {
   if(millis() - lastEncTime > 10)
   {
     encoderPosition = rotaryEncoder.encoderChanged(); // get the current position of the encoder
-    
+  
     if (encoderPosition != 0) { // if the position has changed
-      int delta = encoderPosition - lastEncoderPosition; // calculate the change in position
-      if (delta != 0) // if the change in position is not zero
-        distance += delta * ENCODER_STEP_DISTANCE; // update the total distance traveled
+      if(abs(encoderPosition) > 500)
+      {
+        encoderPosition = 0;
+      }
+      // int delta = encoderPosition - lastEncoderPosition; // calculate the change in position
+      if (encoderPosition != 0) // if the change in position is not zero
+      {
+        distance += encoderPosition * ENCODER_STEP_DISTANCE; // update the total distance traveled
+      }
       unsigned long currentTime = millis(); // get the current time in ms
       unsigned long deltaTime = currentTime - lastTime; // calculate the time elapsed since last measurement
       
       if (deltaTime == 0) { // avoid division by zero error
-        deltaTime = 1; // set a very small value instead
+        deltaTime = 10; // set a very small value instead
       }
       
-      speed = (delta * ENCODER_STEP_DISTANCE) / (deltaTime / 1000.0); // calculate the current speed in cm/s
-      lastEncoderPosition = encoderPosition + lastEncoderPosition; // update the previous position
+      speed = (encoderPosition * ENCODER_STEP_DISTANCE) / (deltaTime / 1000.0); // calculate the current speed in cm/s
+
+      lastEncoderPosition = encoderPosition; // update the previous position
       lastTime = currentTime; // update the previous time
     }
-    lastEncTime = millis();
   }
 
   if (isnan(temperature) || isnan(humidity) || isnan(g.gyro.x) || isnan(g.gyro.y) || isnan(g.gyro.z) || isnan(a.acceleration.x) || isnan(a.acceleration.y) || isnan(a.acceleration.z) || isnan(wrongHeading) || isnan(distance) || isnan(speed)) {
