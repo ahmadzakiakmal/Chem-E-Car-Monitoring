@@ -8,14 +8,24 @@
 #include "DHT.h"
 #include <Adafruit_MPU6050.h>
 #include <Adafruit_Sensor.h>
+#include <PubSubClient.h>
 
 // WiFi SSID and Password
 const char *ssid = "IOT-ZAKI";
 const char *password = "44444444";
 
+// MQTT Broker Setup
+const char *mqttServer = "192.168.137.1";
+const int mqttPort = 1883;
+const char *mqttTopic = "ChemECarData";
+
 // Web Server and Web Socket setup
 AsyncWebServer server(80);
 AsyncWebSocket ws("/ws");
+
+// For MQTT
+WiFiClient espClient;
+PubSubClient client(espClient);
 
 // DHT setup
 #define DHTPIN 4
@@ -39,6 +49,20 @@ void setup() {
   // Start server and web socket
   server.begin();
   server.addHandler(&ws);
+
+  // Connect to MQTT broker
+  client.setServer(mqttServer, mqttPort);
+  while (!client.connected()) {
+    Serial.println("Connecting to MQTT broker...");
+    if (client.connect("ESP32Client")) {
+      Serial.println("Connected to MQTT broker!");
+    } else {
+      Serial.print("Failed, rc=");
+      Serial.print(client.state());
+      Serial.println(" Retrying in 5 seconds...");
+      delay(5000);
+    }
+  }
 
   // DHT
   dht.begin();
@@ -70,6 +94,20 @@ void setup() {
 
 void loop() {
   ws.cleanupClients();
+
+  if (!client.connected()) {
+    while (!client.connected()) {
+      Serial.println("Connecting to MQTT broker...");
+      if (client.connect("ESP32Client")) {
+        Serial.println("Connected to MQTT broker!");
+      } else {
+        Serial.print("Failed, rc=");
+        Serial.print(client.state());
+        Serial.println(" Retrying in 5 seconds...");
+        delay(5000);
+      }
+    }
+  }
 
   // DHT Data
   float temperature = dht.readTemperature();
@@ -109,6 +147,10 @@ void loop() {
 
   // Sending JSON using websocket
   ws.textAll(jsonString);
+
+  // Sending JSON using MQTT
+  client.publish(mqttTopic, jsonString.c_str());
+
   Serial.println(jsonString);
   delay(1000);
 }
