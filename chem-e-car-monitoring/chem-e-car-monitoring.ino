@@ -190,10 +190,11 @@ void loop() {
 
       lastEncoderPosition = encoderPosition; // update the previous position
       lastTime = currentTime; // update the previous time
+      lastEncTime = millis();
     }
     else
     {
-      if(millis() - lastSpeedCheck > 1000)
+      if(millis() - lastEncTime > 1000)
       {
         speed = 0;
       }
