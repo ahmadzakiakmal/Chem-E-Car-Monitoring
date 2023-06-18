@@ -151,6 +151,34 @@ String indexPage = R"HTML(
                 </div>
               </div>
               <div class="flex flex-col gap-10">
+                <div class="w-full flex justify-center gap-10">
+                  <div>
+                    <h1
+                      class="text-[#828282] text-center text-[14px] font-semibold"
+                    >
+                      Time Passed (hh:mm:ss)
+                    </h1>
+                    <h2
+                      id="timePassed"
+                      class="text-[30px] font-bold text-transparent bg-gradient-purple2 bg-clip-text w-full text-center"
+                    >
+                      00:00:00
+                    </h2>
+                  </div>
+                  <div>
+                    <h1
+                      class="text-[#828282] text-center text-[14px] font-semibold"
+                    >
+                      Speed (m/s)
+                    </h1>
+                    <h2
+                      id="speed"
+                      class="text-[30px] font-bold text-transparent bg-gradient-purple2 bg-clip-text w-full text-center"
+                    >
+                      0
+                    </h2>
+                  </div>
+                </div>
                 <div class="grid grid-cols-3 gap-5">
                   <div>
                     <h1
@@ -336,7 +364,21 @@ String indexPage = R"HTML(
   <script defer>
     const body = document.querySelector("body");
     const espIP = window.location.host;
-    console.log(espIP);
+    const timeOpened = Date.now();
+    const timePassed = document.querySelector("#timePassed");
+    
+    setInterval(() => {
+      const timeNow = Date.now();
+      const timeDiff = timeNow - timeOpened;
+      const secondsPassed = Math.floor(timeDiff / 1000);
+      const minutesPassed = Math.floor(secondsPassed / 60);
+      const hoursPassed = Math.floor(minutesPassed / 60);
+      const hoursString = hoursPassed.toString().padStart(2, "0");
+      const minutesString = minutesPassed.toString().padStart(2, "0");
+      const secondsString = secondsPassed.toString().padStart(2, "0");
+      timePassed.innerHTML = `${hoursString}:${minutesString}:${secondsString}`;
+      
+    }, 1000);
 
     if (localStorage.getItem("theme") === "dark") {
       body.classList.add("dark");
@@ -346,7 +388,7 @@ String indexPage = R"HTML(
       document
         .querySelector("#active-indicator")
         .classList.add("indicator-dark");
-      }
+    }
 
     const DHTChart = document.getElementById("DHTChart");
     const temperatures = [];
@@ -425,8 +467,8 @@ String indexPage = R"HTML(
             data: accelZs,
             borderWidth: 1,
             backgroundColor: "rgba(66, 145, 180)",
-            borderColor: "rgba(66, 145, 180)"
-          }
+            borderColor: "rgba(66, 145, 180)",
+          },
         ],
       },
       options: {
@@ -481,8 +523,8 @@ String indexPage = R"HTML(
             data: gyroZs,
             borderWidth: 1,
             backgroundColor: "rgba(66, 145, 180)",
-            borderColor: "rgba(66, 145, 180)"
-          }
+            borderColor: "rgba(66, 145, 180)",
+          },
         ],
       },
       options: {
@@ -508,12 +550,12 @@ String indexPage = R"HTML(
         },
       },
     });
-    
+
     const websocket = new WebSocket(`ws://${espIP}/ws`);
     websocket.addEventListener("open", (event) => {
       websocket.send("Hello Server!");
     });
-    
+
     websocket.addEventListener("message", (event) => {
       const temperature = document.querySelector("#temperature");
       temperature.innerHTML = JSON.parse(event.data).temperature + " °C";
@@ -524,18 +566,18 @@ String indexPage = R"HTML(
       temperatures.push(JSON.parse(event.data).temperature);
       const now = new Date();
 
+      labels.push(
+        `${now.getHours() < 10 ? "0" + now.getHours() : now.getHours()}:${
+          now.getMinutes() < 10 ? "0" + now.getMinutes() : now.getMinutes()
+        }:${now.getSeconds() < 10 ? "0" + now.getSeconds() : now.getSeconds()}`
+      );
+
       const humidity = document.querySelector("#humidity");
       humidity.innerHTML = JSON.parse(event.data).humidity + " %";
       if (humidities.length > 10) {
         humidities.shift();
       }
       humidities.push(JSON.parse(event.data).humidity);
-
-      labels.push(
-        `${now.getHours() < 10 ? "0" + now.getHours() : now.getHours()}:${
-          now.getMinutes() < 10 ? "0" + now.getMinutes() : now.getMinutes()
-        }:${now.getSeconds() < 10 ? "0" + now.getSeconds() : now.getSeconds()}`
-      );
 
       const accelerationX = document.querySelector("#accelerationX");
       accelerationX.innerHTML = JSON.parse(event.data).accelerationX;
@@ -560,21 +602,21 @@ String indexPage = R"HTML(
 
       const pitch = document.querySelector("#pitchDrift");
       pitch.innerHTML = JSON.parse(event.data).rotationY;
-      if(gyroYs.length > 10) {
+      if (gyroYs.length > 10) {
         gyroYs.shift();
       }
       gyroYs.push(JSON.parse(event.data).rotationY);
 
       const roll = document.querySelector("#rollDrift");
       roll.innerHTML = JSON.parse(event.data).rotationX;
-      if(gyroXs.length > 10) {
+      if (gyroXs.length > 10) {
         gyroXs.shift();
       }
       gyroXs.push(JSON.parse(event.data).rotationX);
 
       const yaw = document.querySelector("#yawDrift");
       yaw.innerHTML = JSON.parse(event.data).rotationZ;
-      if(gyroZs.length > 10) {
+      if (gyroZs.length > 10) {
         gyroZs.shift();
       }
       gyroZs.push(JSON.parse(event.data).rotationZ);
