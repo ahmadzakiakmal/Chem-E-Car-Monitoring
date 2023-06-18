@@ -582,7 +582,7 @@ String indexPage = R"HTML(
       },
     });
 
-    const speedDistanceChart = document.getElementById("SpeedDistanceChart");
+    const speedDistanceChart = document.getElementById("distanceSpeedChart");
     const speeds = [];
     const distances = [];
     const chart4 = new Chart(speedDistanceChart, {
