@@ -84,7 +84,7 @@ String indexPage = R"HTML(
               </h1>
               <h2
                 id="temperature"
-                class="text-[30px] font-bold text-transparent bg-gradient-purple2 bg-clip-text w-full text-center"
+                class="text-[30px] font-bold text-transparent bg-gradient-purple2 bg-clip-text w-full"
               >
                 0 °C
               </h2>
@@ -104,7 +104,7 @@ String indexPage = R"HTML(
               </h1>
               <h2
                 id="humidity"
-                class="text-[30px] font-bold text-transparent bg-gradient-purple2 bg-clip-text w-full text-center"
+                class="text-[30px] font-bold text-transparent bg-gradient-purple2 bg-clip-text w-full"
               >
                 0 %
               </h2>
