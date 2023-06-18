@@ -156,7 +156,7 @@ String indexPage = R"HTML(
                     <h1
                       class="text-[#828282] text-center text-[14px] font-semibold"
                     >
-                      Time Passed (hh:mm:ss)
+                      Time (hh:mm:ss)
                     </h1>
                     <h2
                       id="timePassed"
@@ -369,12 +369,10 @@ String indexPage = R"HTML(
     
     setInterval(() => {
       const timeNow = Date.now();
-      const timeDiff = timeNow - timeOpened;
-      const secondsPassed = Math.floor(timeDiff / 1000);
-      const minutesPassed = Math.floor(secondsPassed / 60);
-      const hoursPassed = Math.floor(minutesPassed / 60);
-      const hoursString = hoursPassed.toString().padStart(2, "0");
-      const minutesString = minutesPassed.toString().padStart(2, "0");
+      const timeDiff = new Date(timeNow - timeOpened);
+      const secondsPassed = Math.floor(timeDiff.getTime() / 1000) % 60;
+      const hoursString = timeDiff.getUTCHours().toString().padStart(2, "0");
+      const minutesString = timeDiff.getUTCMinutes().toString().padStart(2, "0");
       const secondsString = secondsPassed.toString().padStart(2, "0");
       timePassed.innerHTML = `${hoursString}:${minutesString}:${secondsString}`;
       
