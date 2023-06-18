@@ -53,7 +53,7 @@ void setup() {
 
   // Route: "/"
   // Method: GET
-  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) { 
+  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
     request->send(200, "text/html", indexPage);
   });
   // Route: "/about"
@@ -69,42 +69,46 @@ void setup() {
 }
 
 void loop() {
-    ws.cleanupClients();
+  ws.cleanupClients();
 
-    // DHT Data
-    float temperature = dht.readTemperature();
-    float humidity = dht.readHumidity();
-    // MPU Data
-    sensors_event_t a, g, temp;
-    mpu.getEvent(&a, &g, &temp);
-    float wrongHeading = originalHeading + g.gyro.z;
+  // DHT Data
+  float temperature = dht.readTemperature();
+  float humidity = dht.readHumidity();
+  // MPU Data
+  sensors_event_t a, g, temp;
+  mpu.getEvent(&a, &g, &temp);
+  float wrongHeading = originalHeading + g.gyro.z;
 
-    // Constructing JSON
-    String jsonString = "";
-    jsonString += "{\"temperature\" : ";
-    jsonString += temperature;
-    jsonString += ", \"humidity\" : ";
-    jsonString += humidity;
-    jsonString += ", \"accelerationX\" : ";
-    jsonString += a.acceleration.x;
-    jsonString += ", \"accelerationY\" : ";
-    jsonString += a.acceleration.y;
-    jsonString += ", \"accelerationZ\" : ";
-    jsonString += a.acceleration.z - 9.8;
-    jsonString += ", \"rotationX\" : ";
-    jsonString += g.gyro.x;
-    jsonString += ", \"rotationY\" : ";
-    jsonString += g.gyro.y;
-    jsonString += ", \"rotationZ\" : ";
-    jsonString += g.gyro.z;
-    jsonString += ", \"missAngle\" : ";
-    jsonString += wrongHeading;
-    jsonString += "}";
-
-    originalHeading = wrongHeading;
-
-    // Sending JSON using websocket
-    ws.textAll(jsonString);
-    Serial.println(jsonString);
-    delay(1000);
+  if (isnan(temperature) || isnan(humidity) || isnan(g.gyro.x) || isnan(g.gyro.y) || isnan(g.gyro.z) || isnan(a.acceleration.x) || isnan(a.acceleration.y) || isnan(a.acceleration.z)) {
+    return;
   }
+
+  // Constructing JSON
+  String jsonString = "";
+  jsonString += "{\"temperature\" : ";
+  jsonString += temperature;
+  jsonString += ", \"humidity\" : ";
+  jsonString += humidity;
+  jsonString += ", \"accelerationX\" : ";
+  jsonString += a.acceleration.x;
+  jsonString += ", \"accelerationY\" : ";
+  jsonString += a.acceleration.y;
+  jsonString += ", \"accelerationZ\" : ";
+  jsonString += a.acceleration.z - 9.8;
+  jsonString += ", \"rotationX\" : ";
+  jsonString += g.gyro.x;
+  jsonString += ", \"rotationY\" : ";
+  jsonString += g.gyro.y;
+  jsonString += ", \"rotationZ\" : ";
+  jsonString += g.gyro.z;
+  jsonString += ", \"missAngle\" : ";
+  jsonString += wrongHeading;
+  jsonString += "}";
+
+  originalHeading = wrongHeading;
+
+  // Sending JSON using websocket
+  ws.textAll(jsonString);
+  Serial.println(jsonString);
+  delay(1000);
+}
