@@ -88,8 +88,10 @@ void setup() {
   client.setServer(mqttServer, mqttPort);
   while (!client.connected()) {
     Serial.println("Connecting to MQTT broker...");
+    Serial.println(WiFi.localIP());
     if (client.connect("ESP32Client")) {
       Serial.println("Connected to MQTT broker!");
+      Serial.println(WiFi.localIP());
     } else {
       Serial.print("Failed, rc=");
       Serial.print(client.state());
